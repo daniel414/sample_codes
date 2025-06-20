@@ -1,0 +1,30 @@
+1. Power_example.zip 中關於 Main.c  function pw_test(void),請問如何觸發?
+A:
+透過 gpio pte4 腳位(touch), 去做功能上的觸發切換
+
+
+2. pw_test(void) function 中,預期上在power 管理上
+(1)有什麼功能
+(2)達到什麼效果,具體規格
+(3)如何觀察功能是否正確
+A:
+(1) 程式提供電源模式的 切換,
+#define MODE_RUN   (0u) /* Run                 */
+初始狀態是 RUN mode
+
+#define MODE_RUN_VLPR (1u) //表示 RUN mode 切換到 VLPR mode
+#define MODE_VLPR_RUN (2u) //表示 VLPR mode 切換到 RUN mode
+#define MODE_RUN_VLPS (3u) //表示 RUN mode 切換到 VLPS mode
+#define MODE_VLPS_RUN (4u) //表示 VLPS mode 切換到 RUN mode
+#define MODE_End      (5u) //結束
+以上定義, 用來指示切換的過程順序.
+
+(2) 程式切換模式如下,
+RUN mode : 正常模式
+VLPR mode (Very Low Power Run) : 低耗電模式
+VLPS mode (Very Low Power Stop) : 低耗電睡眠模式
+
+(3) 可以透過儀器量測耗電量差異.
+耗電量: RUN mode > VLPR mode > VLPS mode
+
+
